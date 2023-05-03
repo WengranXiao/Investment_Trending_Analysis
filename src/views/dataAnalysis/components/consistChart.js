@@ -1,38 +1,59 @@
-import React, { Component } from 'react';
-import { Chart } from '@antv/g2';
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import { Bar } from '@ant-design/plots';
 
-class ConsistChart extends Component {
-  componentDidMount() {
-    var chart = new Chart({
-      container: document.getElementById('ConsistChart'),
-      animate: false,
-      height: 400,
-      theme: 'classic',
-    });
-    chart
-      .interval()
-      .data([
-        { genre: 'Sports', sold: 275 },
-        { genre: 'Strategy', sold: 115 },
-        { genre: 'Action', sold: 120 },
-        { genre: 'Shooter', sold: 350 },
-        { genre: 'Other', sold: 150 },
-      ])
-      .encode('x', 'genre')
-      .encode('y', 'sold')
-      .encode('color', 'genre');
+const consistChart = () => {
 
-    chart.render();
-  }
-  render() {
-    return (
-      <div id="ConsistChart" />
-    );
-  }
-}
+  const data = [
+    {
+      year: '实际',
+      value: 30.60,
+      type: '产品线A',
+    },
 
-export default ConsistChart;
+    {
+      year: '预测',
+      value: 25.5,
+      type: '产品线A',
+    },
+    {
+      year: '实际',
+      value: 20.40,
+      type: '产品线B',
+    },
+    {
+      year: '预测',
+      value: 15.5,
+      type: '产品线B',
+    },
+    
+  ];
+  const config = {
+    data: data,
+    isStack: true,
+    xField: 'value',
+    yField: 'year',
+    seriesField: 'type',
+    label: {
+      // 可手动配置 label 数据标签位置
+      position: 'middle',
+      // 'left', 'middle', 'right'
+      // 可配置附加的布局方法
+      layout: [
+        // 柱形图数据标签位置自动调整
+        {
+          type: 'interval-adjust-position',
+        }, // 数据标签防遮挡
+        {
+          type: 'interval-hide-overlap',
+        }, // 数据标签文颜色自动调整
+        {
+          type: 'adjust-color',
+        },
+      ],
+    },
+  };
+  return <Bar {...config} />;
+};
 
-
-
-
+export default consistChart
