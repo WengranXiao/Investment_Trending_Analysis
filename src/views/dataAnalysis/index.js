@@ -40,10 +40,11 @@ function dataAnalysis() {
     <div className="dataAnalysis">
       <Row>
         <Col span={12}>
-          <TrendChart props={productData}/>
+          <ConsistChart props={areaData}/>
         </Col>
         <Col span={12}>
-          <ConsistChart props={areaData}/>
+
+          <TrendChart props={productData}/>
         </Col>
       </Row>
       <Table
